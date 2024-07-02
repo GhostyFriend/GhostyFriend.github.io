@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link type="text/css" rel="stylesheet" href="styles.css"/>
+		<meta charset="utf-8"/>
+	</head>
+	<body class="bg" onload="onLoadFunction()">
+
+  <img src="mangoca.png" width="40%" id="mango" alt="cat
+  in a mango with a red (top) to yellow (bottom) gradiant with
+  its legs and head poking out of the mango" onmouseover=showNameM()
+  onmouseout=hideNameM() onclick=add()>
+  
+  <img src="applecat.png" width="50%" id="apple" alt="cat
+  in a red apple costume with its head and legs poking out" onmouseover=showNameA()
+  onmouseout=hideNameA() onclick=add()>
+  
+  <div id=ageBackground>
+  <h1> Age: <b id=age></b></h1>
+  </div>
+  
+  <div id=apAgeBackground>
+  <h1> Age: <b id=apAge></b></h1>
+  </div>
+  
+  <div id=MACatBG onmouseover=showNameM() onmouseout=hideNameM() onclick=add()>
+    
+    <p id=MACat>Mango Cat</p>
+  </div>
+  
+  <div id=APCatBG onmouseover=showNameA() onmouseout=hideNameA() onclick=add()>
+    
+    <p id=APCat>Apple Cat</p>
+  </div>
+  
+  <div>
+  <button onclick="clean()" class="buttons">bathe</button>
+  
+  <button onclick="fed()" class="buttons">feed</button>
+  </div>
+  
+  <div class="stats" id="stats">
+  <p> Happiness: <b id="happy"></b></p>
+  
+  <p> Cleanliness: <b id="clean"></b></p>
+  
+  <p> Hunger: <b id="hungry"></b></p> 
+  
+  </div>
+  
+  <script>
+    function showNameM(){
+      var p = document.getElementById("MACat");
+      p.style.display = "block"; 
+      var p = document.getElementById("MACatBG");
+      p.style.display = "block";
+    	    }
+    
+    function showNameA(){
+      var p = document.getElementById("APCat");
+      p.style.display = "block"; 
+      var p = document.getElementById("APCatBG");
+      p.style.display = "block";
+    	    }
+    
+    function onLoadFunction() {
+      console.log("I have onloaded myself")
+      document.getElementById("age").innerHTML = age;
+      document.getElementById("happy").innerHTML = happiness;
+      document.getElementById("clean").innerHTML = cleanliness;
+      document.getElementById("hungry").innerHTML = hunger;
+    }
+    	    
+    function hideNameM(){
+      var p = document.getElementById("MACat");
+      p.style.display = "none"; 
+      var p = document.getElementById("MACatBG");
+      p.style.display = "none";
+    }
+    	    
+    function hideNameA(){
+      var p = document.getElementById("APCat");
+      p.style.display = "none"; 
+      var p = document.getElementById("APCatBG");
+      p.style.display = "none";
+    }
+    	
+    	
+    var happiness = 0;
+    var cleanliness = 0;;
+    var hunger = 0;
+    var runningCount = 0
+    var age = 1;
+    
+    function switchAppleCat(){
+      if (age == 100){
+        var m = document.getElementById("mango");
+        m.style.display = "none"; 
+        var ma = document.getElementById("age");
+        ma.style.display = "none"; 
+        var mabg = document.getElementById("ageBackground");
+        mabg.style.display = "none"; 
+    	  var a = document.getElementById("apple");
+        a.style.display = "block";
+        var aa =document.getElementById("apAge");
+        aa.style.display = "block";
+        var aabg =document.getElementById("apAgeBackground");
+        aabg.style.display = "block";
+      }
+    	    }
+    
+    function add(){
+      // ++happiness;
+      happiness += 1;
+      document.getElementById("happy").innerHTML = happiness;
+      checkRunningCount();
+    }
+    
+    function checkRunningCount () {
+      document.getElementById("age").innerHTML = age;
+      runningCount = happiness + cleanliness;
+      if (hunger > 0){
+        runningCount = - hunger
+      }
+      if (runningCount % 10 == 0) {
+        console.log('got my count', runningCount);
+        ++age
+        document.getElementById("age").innerHTML = age;
+        document.getElementById("apAge").innerHTML = age;
+        switchAppleCat();
+      } else {
+        console.log('got my count else ', runningCount);
+      }
+    }
+    
+    function clean(){
+      cleanliness += 5;
+      hunger += 1
+      checkRunningCount();
+      document.getElementById("hungry").innerHTML = hunger;
+      document.getElementById("clean").innerHTML = cleanliness;
+    }
+    
+    function fed(){
+      document.getElementById("happy").innerHTML = happiness;
+      if (hunger < 5){
+        hunger=0;
+        document.getElementById("hungry").innerHTML = hunger;
+        happiness += 5
+        checkRunningCount();
+        if (cleanliness > 2){
+          cleanliness -= 3
+          document.getElementById("clean").innerHTML = cleanliness;
+        }
+      }
+      else if (hunger == 0){
+        console.log("cool")
+      }
+      else{
+        hunger -= 5;
+        document.getElementById("hungry").innerHTML = hunger;
+        happiness += 5
+        checkRunningCount();
+        if (cleanliness > 10){
+          cleanliness -= 3
+          document.getElementById("clean").innerHTML = cleanliness;
+        }
+      }
+    }
+    
+  </script>
+  
+  
+  </body>
+</html>
