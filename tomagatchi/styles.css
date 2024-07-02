@@ -9,7 +9,7 @@ body{
 }
 
 .bg{
-  background-image: url("labbg.png");
+  background-image: url("../labbg.png");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;
