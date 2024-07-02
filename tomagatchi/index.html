@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
+	<!-- the depression is scuffed-->
 	<head>
 		<link type="text/css" rel="stylesheet" href="styles.css"/>
 		<meta charset="utf-8"/>
 	</head>
 	<body class="bg" onload="onLoadFunction()">
 
-  <img src="../img/mangoca.png" width="40%" id="mango" onclick=add()>
+  <img src="../tomagatchi images/mangoca.png" width="40%" id="mango" onclick=add() onmouseout=hideNameM() onclick=add()>
   
-  <img src="../img/applecat.png" width="50%" id="apple" alt="cat
-  in a red apple costume with its head and legs poking out" onmouseover=showNameA()
+  <img src="../tomagatchi images/applecat.png" width="50%" id="apple" onmouseover=showNameA()
   onmouseout=hideNameA() onclick=add()>
   
   <div id=ageBackground>
@@ -34,6 +34,8 @@
   <button onclick="clean()" class="buttons">bathe</button>
   
   <button onclick="fed()" class="buttons">feed</button>
+
+  <button onclick="medication()" class="buttons">take medication!</button>
   </div>
   
   <div class="stats" id="stats">
@@ -42,6 +44,8 @@
   <p> Cleanliness: <b id="clean"></b></p>
   
   <p> Hunger: <b id="hungry"></b></p> 
+
+  <p> Depression Meter: <b id="depressed"></b></p>
   
   </div>
   
@@ -61,11 +65,13 @@
     	    }
     
     function onLoadFunction() {
-      console.log("I have onloaded myself")
+      console.log("im gonna die")
       document.getElementById("age").innerHTML = age;
       document.getElementById("happy").innerHTML = happiness;
       document.getElementById("clean").innerHTML = cleanliness;
       document.getElementById("hungry").innerHTML = hunger;
+      document.getElementById("depressed").innerHTML = depression;
+
     }
     	    
     function hideNameM(){
@@ -86,6 +92,7 @@
     var happiness = 0;
     var cleanliness = 0;;
     var hunger = 0;
+    var depression = 0;
     var runningCount = 0
     var age = 1;
     
@@ -109,8 +116,14 @@
     function add(){
       // ++happiness;
       happiness += 1;
+      hunger += 1
+      if (depression > 0) {
+        depression -= 1
+      }
       document.getElementById("happy").innerHTML = happiness;
+      document.getElementById("hungry").innerHTML = hunger;
       checkRunningCount();
+      Depression();
     }
     
     function checkRunningCount () {
@@ -118,6 +131,7 @@
       runningCount = happiness + cleanliness;
       if (hunger > 0){
         runningCount = - hunger
+        runningCount = - depression
       }
       if (runningCount % 10 == 0) {
         console.log('got my count', runningCount);
@@ -132,10 +146,11 @@
     
     function clean(){
       cleanliness += 5;
-      hunger += 1
-      checkRunningCount();
+      hunger += 3
       document.getElementById("hungry").innerHTML = hunger;
       document.getElementById("clean").innerHTML = cleanliness;
+      checkRunningCount();
+      Depression();
     }
     
     function fed(){
@@ -162,9 +177,42 @@
           cleanliness -= 3
           document.getElementById("clean").innerHTML = cleanliness;
         }
+        document.getElementById("happy").innerHTML = happiness;
+        Depression();
       }
     }
     
+    function Depression(){
+      if(hunger > 20){
+        if (hunger % 2 == 0){
+          ++Depression
+        }
+      }
+      if (depression > 0){
+        if (depression % 20 == 0){
+          happiness -= 20
+        }
+        else if (depression % 5 == 0){
+          happiness -= 5
+        }
+      }
+      document.getElementById("depressed").innerHTML = depression;
+      document.getElementById("happy").innerHTML = happiness;
+      checkRunningCount();
+    }
+
+    function medication(){
+      hunger -= 5
+      cleanliness -= 10
+      happiness += 5
+      if (depression > 9){
+        depression -= 10
+      }
+      else if (depression > 0){
+        depression=0;
+      }
+      checkRunningCount();
+    }
   </script>
   
   
